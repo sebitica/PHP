@@ -7,8 +7,8 @@ $database = new Database();
 $db = $database->getConnection();
 $message = "";
 
-$siteKey = "6Lf4IiosAAAAAL6DMW3xjTyCwv5B7Sev71Zky7bz"; 
-$secretKey = "6Lf4IiosAAAAAAGWKH3QMCcs-e2Td4z1S-aYk18y";
+$siteKey = "########################################"; 
+$secretKey = "########################################";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     verify_csrf(); 
