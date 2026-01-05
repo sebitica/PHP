@@ -1,326 +1,146 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="ro">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proiect PHP: Casa de Producție Muzicală</title>
+    <title>Casa de Producție Muzicală - Sistem de Management</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f7f6;
-            color: #333;
+            text-align: center;
+            margin-top: 50px;
+            background-image: url('img/5897b9a30f875b1db5872894c6a23e0b.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center center;
+        }
 
-            //background-image: url('img/5897b9a30f875b1db5872894c6a23e0b.jpg');
-            //background-repeat: no-repeat;
-            //background-size: cover;
-            //background-attachment: fixed;
-            //background-position: center center;
-        }
-        .container {
-            width: 85%;
-            margin: 40px auto;
-            background: #fff;
+        .main-content {
+            max-width: 800px;
+            margin: 0 auto;
             padding: 30px;
+            background: white;
+            border-radius: 10px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
         }
+
         h1 {
             color: #007bff;
-            border-bottom: 3px solid #007bff;
-            padding-bottom: 10px;
-            margin-bottom: 25px;
-            text-align: center;
+            font-size: 2.5em;
         }
-        h2 {
-            color: #343a40;
-            border-left: 5px solid #ffc107;
-            padding-left: 10px;
-            margin-top: 30px;
-            margin-bottom: 15px;
+
+        .buttons a {
+            display: inline-block;
+            margin: 15px;
+            padding: 12px 25px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 6px;
+            transition: background-color 0.3s;
         }
-        h3 {
-            color: #28a745;
-            margin-top: 20px;
+
+        .btn-doc {
+            background-color: #28a745;
+            color: white;
+            border: 1px solid #28a745;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
+
+        .btn-doc:hover {
+            background-color: #1f7a35;
         }
-        table, th, td {
-            border: 1px solid #dee2e6;
+
+        .btn-login {
+            background-color: #ffc107;
+            color: #333;
+            border: 1px solid #ffc107;
         }
-        th, td {
-            padding: 12px;
-            text-align: left;
+
+        .btn-login:hover {
+            background-color: #e0a800;
         }
-        th {
-            background-color: #e9ecef;
-            color: #495057;
+
+        .btn-register {
+            background-color: #17a2b8;
+            color: white;
+            border: 1px solid #17a2b8;
         }
-        code {
-            background-color: #e9ecef;
-            padding: 2px 4px;
-            border-radius: 4px;
-            color: #c82333;
+
+        .btn-register:hover {
+            background-color: #138496;
         }
-        pre {
-            background-color: #343a40;
-            color: #e0e0e0;
-            padding: 15px;
-            border-radius: 5px;
-            overflow-x: auto;
+
+        .btn-admin {
+            background-color: #fd7e14;
+            color: white;
+            border: 1px solid #fd7e14;
         }
-        .note {
-            background-color: #d1ecf1;
-            border-left: 5px solid #007bff;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 4px;
+
+        .btn-admin:hover {
+            background-color: #e36d0d;
+        }
+
+        .btn-logout {
+            background-color: #dc3545;
+            color: white;
+            border: 1px solid #dc3545;
+        }
+
+        .btn-logout:hover {
+            background-color: #c82333;
         }
     </style>
 </head>
+
 <body>
 
-<div class="container">
-    <h1>🎵 Proiect PHP: Casă de Producție Muzicală</h1>
-    <p class="note">Acest document prezintă soluția tehnică propusă pentru implementarea unui sistem de management al unei Case de Productie Muzicala / Casa de Discuri folosind PHP și MySQL.</p>
+    <div class="main-content">
+        <h1>🎵 Casă de Producție Muzicală</h1>
+        <h2>🏠 PAGINA PRINCIPALA</h2>
 
-    <h2>I. Descrierea Aplicației Web</h2>
-    <hr>
-    
-    <h3>1. Obiectiv și Funcționalități</h3>
-    <p>Aplicația este un sistem centralizat de tip CRUD (Create, Read, Update, Delete) care gestionează operațiunile interne ale unei case de producție. Se adresează exclusiv rolurilor de Administrator și Vizitator (Guest).</p>
-    
-    <h4>Interfețele Aplicației</h4>
-    <ul>
-        <li>Frontend Public: Afișează catalugul lansat (Artiști, Albume, Piese) pentru Vizitatori.</li>
-        <li>Backend (Administrare): Portal securizat accesibil doar Adminului pentru gestiunea completă a datelor.</li>
-    </ul>
+        <p>Această aplicație web servește ca un Panou de Administrare securizat pentru a gestiona catalogul muzical
+            (Albume, Piese), resursele umane (Artiști, Producători) și studiourile de înregistrare.</p>
 
-    <h3>2. Rolurile Simplificate ale Utilizatorilor</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Rol (Tabelul *users*)</th>
-                <th>Acces și Responsabilități</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><strong>Administrator</strong></td>
-                <td>Acces complet (CRUD) la toate entitățile. Responsabil de crearea pieselor și alocarea Producătorilor.</td>
-            </tr>
-            <tr>
-                <td><strong>Vizitator / Guest</strong></td>
-                <td>Acces public, vizualizare (Read-Only) a informațiilor lansate (Artiști, Albume, Piese).</td>
-            </tr>
-        </tbody>
-    </table>
+        <hr>
 
-    <h2>II. Descrierea Arhitecturii Aplicației</h2>
-    <hr>
+        <div class="buttons">
+            <a href="descriere.php" class="btn-doc">
+                Vizualizează Documentația Proiectului 📃
+            </a>
 
-    <h3>1. Procesele specifice aplicației</h3>
-    <p>Procesele descriu modul în care datele circulă și sunt modificate în sistem, concentrându-se pe rolul Administratorului.</p>
-	<table>
-		<thead>
-			<tr>
-				<th>Proces</th>
-				<th>Utilizator</th>
-				<th>Descriere</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td><strong>Autentificare</strong></td>
-				<td>Administrator</td>
-				<td>Controllerul preia datele, Modelul verifică hash-ul parolei din users. Dacă e valid, creează sesiunea ($_SESSION).</td>
-			</tr>
-			<tr>
-				<td><strong>Gestiunea Resurselor</strong></td>
-				<td>Administrator</td>
-				<td>Proces CRUD simplu pe entitățile artists, producers, studios (inserții/actualizări într-un singur tabel).</td>
-			</tr>
-			<tr>
-				<td><strong>Adăugare Piesă</strong></td>
-				<td>Administrator</td>
-				<td>Controllerul primește date, Modelul execută: 1) INSERT în tracks, 2) Preia track_id (cheia primară), 3) Execută multiple
-				INSERT-uri în track_artists și track_producers.</td>
-			</tr>
-			<tr>
-				<td><strong>Vizualizare Catalog</strong></td>
-				<td>Administrator / Vizitator</td>
-				<td>Controllerul cere Modelului date. Modelul folosește interogări JOIN complexe (pe 4-5 tabele) pentru a afișa lista
-				pieselor împreună cu toți Artiștii și Producătorii asociați.</td>
-			</tr>
-		</tbody>
-	</table>
+            <?php if (isset($_SESSION['user_id'])): ?>
+            <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+            <a href="admin/dashboard.php" class="btn-admin">
+                Panou Administrare 🚀
+            </a>
+            <?php endif; ?>
 
-    <h3>2. Entități Principale</h3>
+            <a href="logout.php" class="btn-logout">
+                Deconectare 👋
+            </a>
 
-	<table>
-		<thead>
-			<tr>
-				<th>Entitate</th>
-				<th>Descriere</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td><strong>Utilizatori</strong></td>
-				<td>Izolată (doar pentru login Administrator)</td>
-			</tr>
-			<tr>
-				<td><strong>Utilizatori (Administrator)</strong></td>
-				<td>Acesta este rolul cu cele mai înalte privilegii și reprezintă utilizatorul principal al aplicației</td>
-			</tr>
-			<tr>
-				<td><strong>Utilizatori (Vizitator)</strong></td>
-				<td>Acesta este orice utilizator care accesează aplicația fără a fi autentificat. Poate vedea artistii si muzica scoasa de
-				acestia</td>
-			</tr>
-			<tr>
-				<td><strong>Artisti</strong></td>
-				<td>Datele despre artiștii semnați de casa de producție</td>
-			</tr>
-			<tr>
-				<td><strong>Producatori</strong></td>
-				<td>Datele despre producătorii afiliați, echipa tehnică responsabilă de înregistrare, mixaj și masterizare</td>
-			</tr>
-			<tr>
-				<td><strong>Albume</strong></td>
-				<td>Colectii de piese publicate de catre artisti</td>
-			</tr>
-			<tr>
-				<td><strong>Piese</strong></td>
-				<td>Datele despre piesele inregistrate de artisti</td>
-			</tr>
-			<tr>
-				<td><strong>Studiouri</strong></td>
-				<td>Datele despre studiourile la care artistii inregristreaza piese</td>
-			</tr>
-			<tr>
-				<td><strong>Artisti_Piesa</strong></td>
-				<td>Face legătura între o piesă și toți artiștii implicați. Permite modelarea colaborărilor (featuring-urilor).</td>
-			</tr>
-			<tr>
-				<td><strong>Producatori_Piesa</strong></td>
-				<td>Face legătura între o piesă și toți producătorii care au lucrat la ea. Permite ca o piesă să aibă mai mulți producători
-				și ca un producător să lucreze la mai multe piese.</td>
-			</tr>
-		</tbody>
-	</table>
-    
-    <h3>3. Schema Bazei de Date (MySQL)</h3>
-    <p>Schema relațională esențială:</p>
-	<table>
-		<thead>
-			<tr>
-				<th>Tabel (Entitate)</th>
-				<th>Câmpuri Cheie</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td><strong>Utilizatori</strong></td>
-				<td>id_utilizator (PK), username, email, parola, data_inregistrare</td>
-			</tr>
-			<tr>
-				<td><strong>Artisti</strong></td>
-				<td>id_artist (PK), nume, gen, tara, biografie, data_semnarii</td>
-			</tr>
-			<tr>
-				<td><strong>Producatori</strong></td>
-				<td>id_producator (PK), nume, tara, data_semnarii</td>
-			</tr>
-			<tr>
-				<td><strong>Albume</strong></td>
-				<td>id_album (PK), titlu, id_artist (FK), data_lansare, durata</td>
-			</tr>
-			<tr>
-				<td><strong>Piese</strong></td>
-				<td>id_piesa (PK), titlu, durata, id_album (FK), studio_id (FK)</td>
-			</tr>
-			<tr>
-				<td><strong>Studiouri</strong></td>
-				<td>id_studio (PK), nume, adresa</td>
-			</tr>
-			<tr>
-				<td><strong>Artisti_Piesa</strong></td>
-				<td>id_artist (FK), id_piesa (FK)</td>
-			</tr>
-			<tr>
-				<td><strong>Producatori_Piesa</strong></td>
-				<td>id_producator (FK), id_piesa (FK)</td>
-			</tr>
-		</tbody>
-	</table>
+            <?php else: ?>
+            <a href="login.php" class="btn-login">
+                Login 🔑
+            </a>
 
-    <h2>III. Soluția de Implementare Propusă</h2>
-    <hr>
-    
-	<h3>1. Componentele Principale (Arhitectura MVC)</h3>
-	<p>Aplicația este structurată pe modelul Model-View-Controller (MVC):</p>
-	<ul>
-		<li>Controller: Gestionează cererile, verifică autentificarea și direcționează fluxul de date.</li>
-		<li>Model: Conține logica, execută interogările complexe și asigură integritatea datelor.</li>
-		<li>View: Prezintă interfața grafică și formularele.</li>
-	</ul>
+            <a href="register.php" class="btn-register">
+                Înregistrare Cont 📝
+            </a>
 
-    <h3>2. Mediul de Implementare</h3>
+            <a href="contact.php" class="btn-doc" style="background-color: #6f42c1; border-color: #6f42c1;">
+                Contact 📬
+            </a>
 
-	<table>
-		<thead>
-			<tr>
-				<th>Aspect</th>
-				<th>Metoda</th>
-				<th>Descriere</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td><strong>Backend</strong></td>
-				<td>PHP</td>
-				<td>Permite demonstrarea cunoștințelor fundamentale de PHP fără dependența de un framework.</td>
-			</tr>
-			<tr>
-				<td><strong>Baza de Date</strong></td>
-				<td>MySQL</td>
-				<td>Bază de date relațională robustă</td>
-			</tr>
-			<tr>
-				<td><strong>Securitate Parole</strong></td>
-				<td>Funcția password_hash()</td>
-				<td>Stocarea parolelor Adminului sub formă de hash-uri sigure (nu text simplu).</td>
-			</tr>
-			<tr>
-				<td><strong>Vizualizare Catalog</strong></td>
-				<td>Administrator / Vizitator</td>
-				<td>Controllerul cere Modelului date. Modelul folosește interogări JOIN complexe (pe 4-5 tabele) pentru a
-					afișa lista
-					pieselor împreună cu toți Artiștii și Producătorii asociați.</td>
-			</tr>
-		</tbody>
-	</table>
+            <?php endif; ?>
 
-    <h3>2. Diagrama ERD</h3>
-    <p>Aceasta ilustrează relațiile dintre entitati si datele din acestea:</p>
-    
-    <div style="text-align: center;" alt = "Diagrama ERD">
-        <img src="img/planttextumlphp.PNG">
+        </div>
     </div>
-
-    <h3>3. Use Case Diagram - UML
-    <p>Aceasta ilustrează interactiunea Utilizatorilor cu aplicatia:</p>
-
-    <div style="text-align: center;" alt = "Use Case Diagram">
-        <img src="img/oameniuml.PNG">
-    </div>
-</div>
 
 </body>
+
 </html>
