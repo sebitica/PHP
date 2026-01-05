@@ -3,7 +3,7 @@ require_once '../config/check_auth.php';
 require_once '../config/database.php';
 
 if (!isAdmin()) {
-}
+} 
 
 $database = new Database();
 $db = $database->getConnection();
